@@ -2,16 +2,16 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
-const users = new schema({
+const users = new Schema({
     username: {
-        type: string,
+        type: String,
         required: true,
         minLength: 3,
         maxLength: 20,
         trim: true
     },
     password: {
-        type: string,
+        type: String,
         required: true,
         minLength: 3
     },
@@ -40,4 +40,4 @@ users.pre('save', function(next) {
 
 
 
-module.exports = mongoose.model('User', Users);
+module.exports = mongoose.model('User', users);
