@@ -11,7 +11,7 @@ const app = express();
 
 mongoose.set('useFindAndModify', false);
 mongoose.connect(
-    'mongodb://localhost:27017/companyDatabases2', {
+    'mongodb://localhost:27017/usersDB', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }
@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', api);
+app.use('/api', api);
 
 
 // catch 404 and forward to error handler

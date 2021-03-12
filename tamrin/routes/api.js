@@ -4,7 +4,10 @@ const register = require('./register')
 
 const router = express.Router();
 /* GET home page. */
-router.use('/resgiter', register);
+router.get('/', (req, res) => {
+    res.send('hi')
+})
+router.use('/register', register);
 // router.use('/aut', aut);
 
 
