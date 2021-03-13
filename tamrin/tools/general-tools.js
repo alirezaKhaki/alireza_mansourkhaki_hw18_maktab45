@@ -11,12 +11,7 @@ generalTools.sessionChecker = function(req, res, next) {
 
 generalTools.loginChecker = function(req, res, next) {
     if (!req.session.user) {
-        return res.redirect(url.format({
-            pathname: "/api/auth/loginPage",
-            query: {
-                "msg": 'Please Login :('
-            }
-        }));
+        return res.redirect("/api/login")
     };
 
     return next()
