@@ -3,9 +3,9 @@ const users = require('../model/user')
 const url = require('url')
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const generalTools = require('../tools/general-tools');
 
-
-router.get('/', (req, res) => {
+router.get('/', generalTools.sessionChecker, (req, res) => {
     res.render('register')
 })
 

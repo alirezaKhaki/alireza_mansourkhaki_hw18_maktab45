@@ -3,8 +3,9 @@ const users = require('../model/user')
 const url = require('url')
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const generalTools = require('../tools/general-tools');
 
-router.get('/', (req, res) => {
+router.get('/', generalTools.sessionChecker, (req, res) => {
     res.render('login')
 })
 
@@ -15,6 +16,8 @@ router.post('/', (req, res) => {
             bcrypt.compare(req.body.password, user.password, function(err, respoonse) {
                 if (err) return res.status(500).send({ "msg": "server error " })
                 if (respoonse) {
+                    req.session.user = user;
+
                     res.send({ "msg": "login sucssesfull" })
                 } else {
 

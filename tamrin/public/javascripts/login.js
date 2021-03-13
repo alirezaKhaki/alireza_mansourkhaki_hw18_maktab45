@@ -18,13 +18,15 @@ $(function() {
             url: "/api/login",
             data: newUser,
             success: function(data) {
-
-                if (data.msg === 'success') {
+                console.log(data.msg);
+                if (data.msg === 'login sucssesfull') {
                     alert('login successfull you will now redirect to your dashboard')
 
                     window.location.href = '/api/dashboard'
 
 
+                } else if (data.msg === 'incorrect username or password') {
+                    alert('incorrect username or password')
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {

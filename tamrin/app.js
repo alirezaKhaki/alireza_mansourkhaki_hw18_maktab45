@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose')
 const api = require('./routes/api')
-
+const session = require('express-session');
 
 const app = express();
 
@@ -25,6 +25,32 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+    key: 'user_sid',
+    secret: 'mysecretKey',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
+}));
+
+app.use((req, res, next) => {
+    // // console.log("**********************");
+    // console.log(req.session);
+    // console.log('************************');
+    // // console.log(req.session.user);
+    // console.log(req.cookies);
+
+
+    if (req.cookies.user_sid && !req.session.user) {
+        res.clearCookie('user_sid')
+    };
+    next();
+});
+
+
 
 app.use('/api', api);
 
