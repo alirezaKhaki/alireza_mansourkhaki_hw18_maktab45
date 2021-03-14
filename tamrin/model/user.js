@@ -48,8 +48,13 @@ users.pre('save', function(next) {
     };
 })
 
-users.pre('findOneAndUpdate', async function() {
-    this._update.password = await bcrypt.hash(this._update.password, 10)
+users.pre('findOneAndUpdate', async function(next) {
+    if (this._update.password) {
+
+        this._update.password = await bcrypt.hash(this._update.password, 10)
+    } else {
+        return next();
+    }
 })
 
 

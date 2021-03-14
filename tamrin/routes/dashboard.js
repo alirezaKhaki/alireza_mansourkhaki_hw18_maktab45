@@ -19,7 +19,7 @@ router.get('/logout', (req, res) => {
 router.post('/edit', generalTools.loginChecker, (req, res) => {
     console.log(req.body);
     users.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, user) => {
-        if (err) return res.status(500).send({ "msg": "server error :(" })
+        if (err) return console.log(err);
         res.clearCookie("user_sid");
         if (user) return res.send({ "msg": "sucsses" });
     })
