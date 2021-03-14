@@ -1,8 +1,12 @@
 $(function() {
 
     $('body').on('click', '#register', function() {
-        const username = $('#username').val()
-        const password = $('#password').val()
+        const username = $('#username').val();
+        const password = $('#password').val();
+        const email = $('#email').val();
+        const number = $('#number').val();
+
+
         if (username.length < 3 || username.length > 20) {
             return alert("username length must be between 3-20")
         }
@@ -11,7 +15,9 @@ $(function() {
         }
         const newUser = {
             username: username,
-            password: password
+            password: password,
+            email: email,
+            phone: number
         }
 
 
