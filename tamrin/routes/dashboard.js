@@ -1,4 +1,5 @@
 const express = require('express');
+const users = require('../model/user');
 const router = express.Router();
 const generalTools = require('../tools/general-tools');
 
@@ -12,6 +13,15 @@ router.get('/logout', (req, res) => {
     res.clearCookie("user_sid");
     res.redirect('/api/dashboard')
 
+})
+
+router.post('/edit', generalTools.loginChecker, (req, res) => {
+    console.log(req.body);
+    users.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, user) => {
+        if (err) return res.status(500).send({ "msg": "server error :(" })
+        res.clearCookie("user_sid");
+        if (user) return res.send({ "msg": "success" });
+    })
 })
 
 module.exports = router;

@@ -5,19 +5,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
 </head>
 
 <body>
-    <p>
-        <%= user._id %>
-    </p>
-    <p>
-        <%= user.username %>
-    </p>
+    <div class="user">
+        <p>ID:
+            <%= user._id %>
+        </p>
+        <p>USERNAME:
+            <%= user.username %>
+        </p>
+        <p>EMAIL:
+            <%= user.email %>
+        </p>
+        <p>PHONE NUMBER:
+            <%= user.phone %>
+        </p>
+    </div>
+    <div class="edit" style="display: none;">
+        <input type="text" id="id" value="<%= user._id %>" disabled>
+        <input type="text" id="username" value="<%= user.username %>" disabled>
+        <input type="email" id="email" value="<%= user.email %>">
+        <input type="number" id="number" value="<%= user.phone %>">
+        <button id="save"> SAVE</button>
+        <button id="delete"> DELETE</button>
+        <button id="close">Close</button>
+    </div>
+    <div class="password" style="display: none;">
+        <input type="password" id="old_pass" placeholder="previous password">
+        <input type="password" id="new_pass" placeholder="new password">
+        <button id="pass_save">Save</button>
+        <button id="pass_close">Close</button>
+    </div>
     <form action="/api/dashboard/logout" method="GET">
         <button type="submit">logout</button>
     </form>
+    <button id="edit">Edit Profile</button>
+    <button id="change">Change Password</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/javascripts/dashboard.js"></script>
 </body>
 
 </html>
