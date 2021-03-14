@@ -48,6 +48,9 @@ users.pre('save', function(next) {
     };
 })
 
+users.pre('findOneAndUpdate', async function() {
+    this._update.password = await bcrypt.hash(this._update.password, 10)
+})
 
 
 module.exports = mongoose.model('User', users);
