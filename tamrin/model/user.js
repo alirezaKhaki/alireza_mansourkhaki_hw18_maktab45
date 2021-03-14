@@ -16,6 +16,15 @@ const users = new Schema({
         required: true,
         minLength: 3
     },
+    email: {
+        type: String,
+        required: true,
+        minLength: 3
+    },
+    phone: {
+        type: Number,
+
+    },
     createdAt: {
         type: Date,
         default: Date.now
