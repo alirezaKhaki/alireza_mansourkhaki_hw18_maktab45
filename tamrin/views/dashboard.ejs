@@ -29,7 +29,6 @@
         <input type="email" id="email" value="<%= user.email %>">
         <input type="number" id="number" value="<%= user.phone %>">
         <button id="save"> SAVE</button>
-        <button id="delete"> DELETE</button>
         <button id="close">Close</button>
     </div>
     <div class="password" style="display: none;">
@@ -41,9 +40,14 @@
     <form action="/api/dashboard/logout" method="GET">
         <button type="submit">logout</button>
     </form>
+    <div class="delete" style="display: none;">
+        <input type="password" id="delete_pass" placeholder="enter your password">
+        <button id="delete_account_close">close</button>
+        <button id="delete_account">Delete Acount</button>
+    </div>
     <button id="edit">Edit Profile</button>
     <button id="change">Change Password</button>
-
+    <button id="delete"> DELETE</button>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/javascripts/dashboard.js"></script>
 </body>

@@ -79,4 +79,41 @@ $(function() {
     $('body').on('click', '#pass_close', function() {
         $('.password').css({ 'display': 'none' })
     });
+    $('body').on('click', '#delete', function() {
+        $('.delete').css({ 'display': 'block' })
+    });
+    $('body').on('click', '#delete_account', function() {
+        const pass = $('#delete_pass').val()
+        if (pass === "") return alert('please enter your password')
+        const check_pass = {
+            password: pass
+        }
+        console.log(check_pass);
+        $.ajax({
+            type: "POST",
+            url: "/api/dashboard/delete",
+            data: check_pass,
+            success: function(data) {
+
+                if (data.msg === 'deleted') {
+                    alert('your account deleted!')
+
+                    window.location.href = '/api/register'
+
+
+                } else if (data.msg === 'wrong password') {
+                    alert('wrong password')
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(errorThrown);
+                console.log(textStatus);
+                console.log(XMLHttpRequest);
+
+            }
+        })
+    });
+    $('body').on('click', '#delete_account_close', function() {
+        $('.delete').css({ 'display': 'none' })
+    });
 });

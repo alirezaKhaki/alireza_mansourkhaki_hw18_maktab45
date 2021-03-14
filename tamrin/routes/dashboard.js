@@ -46,4 +46,24 @@ router.post('/password', generalTools.loginChecker, (req, res) => {
     })
 })
 
+
+router.post('/delete', generalTools.loginChecker, (req, res) => {
+
+    const pass = req.session.user.password
+    const id = req.session.user._id
+
+    bcrypt.compare(req.body.password, pass, function(err, respoonse) {
+        if (err) console.log(err);
+        if (respoonse) {
+            users.remove({ _id: id }, function(err) {
+                if (err) return res.status(500).send({ "msg": "server error :(" })
+                res.clearCookie("user_sid");
+                res.send({ "msg": "deleted" })
+            })
+        } else {
+            res.send({ "msg": "wrong password" })
+        }
+    });
+})
+
 module.exports = router;
