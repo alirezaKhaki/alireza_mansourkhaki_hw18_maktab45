@@ -12,12 +12,12 @@ router.get('/', generalTools.sessionChecker, (req, res) => {
 router.post('/', function(req, res, next) {
 
     if (!req.body.username || !req.body.password) {
-        return res.status(400).send({ "msg": "bad Request" })
+        return res.status(400).send("username or password is empty")
     }
     users.findOne({ username: req.body.username }, function(err, User) {
         if (err) return res.status(500).send({ "msg": "internal server error" })
         if (User) {
-            res.status(409).send({ "msg": "user already exist!" })
+            res.status(409).send("user already exist!")
         } else {
             console.log(req.body)
             const newUser = new users({
@@ -27,8 +27,12 @@ router.post('/', function(req, res, next) {
                 email: req.body.email
             })
             newUser.save((err, user) => {
-                if (err) return res.status(500).json({ msg: "Server Error :)", err: err.message });
-                console.log(user);
+                if (err) {
+                    if (err.stack.includes("email"))
+                        return res.status(400).send("email input is empty");
+                    return res.status(500).send();
+
+                }
                 if (user) return res.json({ "msg": "success" })
             })
         }
