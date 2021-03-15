@@ -8,10 +8,11 @@ $(function() {
 
 
         if (username.length < 3 || username.length > 20) {
-            return alert("username length must be between 3-20")
+
+            return $('.modal-body').html(''), $('.modal-body').html('username length must be between 3-20'), $("#triger").click();
         }
         if (password.length < 3 || password.length > 20) {
-            return alert("password length must be between 3-20")
+            return $('.modal-body').html(''), $('.modal-body').html('password length must be between 3-20'), $("#triger").click();
         }
         const newUser = {
             username: username,
@@ -28,18 +29,14 @@ $(function() {
             success: function(data) {
 
                 if (data.msg === 'success') {
-                    alert('register successfull you will now redirect to login page')
-
-                    window.location.href = '/api/login'
-
+                    $('.modal-body').html(''), $('.modal-body').html('signup successfull you will now redirect to login page'), $("#triger").click();
+                    setTimeout(function() { window.location.href = '/api/login' }, 3000);
 
                 }
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                if (errorThrown) {
-                    alert('user already exist')
-                }
+            error: function(err) {
 
+                return $('.modal-body').html(''), $('.modal-body').html(err.responseText), $("#triger").click();
             }
 
         });
