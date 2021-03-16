@@ -18,14 +18,14 @@ router.post('/', (req, res) => {
                 if (respoonse) {
                     req.session.user = user;
 
-                    return res.send({ "msg": "login sucssesfull" })
+                    return res.send("login sucssesfull")
                 } else {
 
-                    return res.status(404).send({ "msg": 'incorrect username or password' });
+                    return res.status(404).send('user not found');
                 }
             });
         } else if (!user) {
-            res.status(404).send({ "msg": 'incorrect username or password' });
+            res.status(404).send('user not found');
         }
     })
 })
