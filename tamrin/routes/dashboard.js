@@ -26,6 +26,9 @@ router.post('/edit', generalTools.loginChecker, (req, res) => {
 })
 
 router.post('/password', generalTools.loginChecker, (req, res) => {
+    if (!req.body.password) return res.status(400).send('old password input is empty')
+    if (!req.body.new_password) return res.status(400).send('new password input is empty')
+
     users.findOne({ _id: req.body._id }, function(err, user) {
         if (err) return res.status(500).send({ "msg": "server error " })
         if (user) {
@@ -39,7 +42,7 @@ router.post('/password', generalTools.loginChecker, (req, res) => {
                     });
                 } else {
 
-                    return res.send({ "msg": 'wrong password' });
+                    return res.status(401).send('wrong password');
                 }
             });
         }
@@ -51,17 +54,17 @@ router.post('/delete', generalTools.loginChecker, (req, res) => {
 
     const pass = req.session.user.password
     const id = req.session.user._id
-
+    if (!req.body.password) return res.status(400).send('password input is empty')
     bcrypt.compare(req.body.password, pass, function(err, respoonse) {
-        if (err) console.log(err);
+        if (err) res.status(500).send('server error');
         if (respoonse) {
             users.remove({ _id: id }, function(err) {
-                if (err) return res.status(500).send({ "msg": "server error :(" })
+                if (err) return res.status(500).send("server error :(")
                 res.clearCookie("user_sid");
-                res.send({ "msg": "deleted" })
+                res.send("deleted")
             })
         } else {
-            res.send({ "msg": "wrong password" })
+            res.status(401).send("wrong password")
         }
     });
 })

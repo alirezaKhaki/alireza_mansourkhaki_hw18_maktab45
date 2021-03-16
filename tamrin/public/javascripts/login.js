@@ -36,7 +36,7 @@ $(function() {
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 if (errorThrown) {
-                    alert('user already exist')
+                    alert(errorThrown)
                 }
 
             }

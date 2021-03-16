@@ -14,6 +14,15 @@ router.post('/', function(req, res, next) {
     if (!req.body.username || !req.body.password) {
         return res.status(400).send("username or password is empty")
     }
+    if (req.body.username.length < 3 || req.body.username.length > 20) {
+        return res.status(400).send("username length must be in this range =>(3-20)")
+    }
+    if (req.body.password.length < 3) {
+        return res.status(400).send("password length must be greater than 3")
+    }
+    // if (!email.match(mailformat)) {
+    //     console.log(false);
+    // }
     users.findOne({ username: req.body.username }, function(err, User) {
         if (err) return res.status(500).send({ "msg": "internal server error" })
         if (User) {
@@ -28,10 +37,14 @@ router.post('/', function(req, res, next) {
             })
             newUser.save((err, user) => {
                 if (err) {
-                    if (err.stack.includes("email"))
-                        return res.status(400).send("email input is empty");
-                    return res.status(500).send();
-
+                    console.log(err);
+                    if (err.stack.includes("Email address is required")) {
+                        return res.status(400).send("Email address is required");
+                        return res.status(500).send();
+                    } else if (err.stack.includes("Please fill a valid email address")) {
+                        return res.status(400).send("Please fill a valid email address");
+                        return res.status(500).send();
+                    }
                 }
                 if (user) return res.json({ "msg": "success" })
             })

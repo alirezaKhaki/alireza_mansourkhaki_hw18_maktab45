@@ -5,13 +5,16 @@ $(function() {
         const password = $('#password').val();
         const email = $('#email').val();
         const number = $('#number').val();
-
+        const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+            // if (!email.match(mailformat)) {
+            //     return $('.modal-body').html(''), $('.modal-body').html('wrong email format'), $("#triger").click();
+            // }
 
         if (username.length < 3 || username.length > 20) {
 
             return $('.modal-body').html(''), $('.modal-body').html('username length must be between 3-20'), $("#triger").click();
         }
-        if (password.length < 3 || password.length > 20) {
+        if (password.length < 3) {
             return $('.modal-body').html(''), $('.modal-body').html('password length must be between 3-20'), $("#triger").click();
         }
         const newUser = {

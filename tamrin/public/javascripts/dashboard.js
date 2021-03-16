@@ -1,9 +1,13 @@
 $(function() {
+    $(".edit").hide();
+    $(".password").hide();
+    $(".delete").hide();
     $('body').on('click', '#edit', function() {
-        $('.edit').css({ 'display': 'block' })
+        $(".edit").slideToggle(1200);
+
     });
     $('body').on('click', '#close', function() {
-        $('.edit').css({ 'display': 'none' })
+        $('.edit').slideToggle(1200);
     });
     $('body').on('click', '#save', function() {
         const id = $('#id').val();
@@ -24,23 +28,25 @@ $(function() {
             success: function(data) {
 
                 if (data.msg === 'sucsses') {
-                    alert('your information edited sucssesfully you need to login again')
 
-                    window.location.href = '/api/login'
+                    $('.modal-body').html(''), $('.modal-body').html('your information edited sucssesfully you need to login again'), $("#triger").click();
 
+                    setTimeout(function() {
+                        window.location.href = '/api/login'
+
+                    }, 3000);
 
                 }
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                console.log(errorThrown);
-                console.log(textStatus);
-                console.log(XMLHttpRequest);
+            error: function(err) {
+                $('.modal-body').html(''), $('.modal-body').html(err.responseText), $("#triger").click();
+
 
             }
         })
     });
     $('body').on('click', '#change', function() {
-        $('.password').css({ 'display': 'block' })
+        $('.password').slideToggle(1200);
     });
     $('body').on('click', '#pass_save', function() {
         const id = $('#id').val();
@@ -59,61 +65,59 @@ $(function() {
             success: function(data) {
 
                 if (data.msg === 'sucsses') {
-                    alert('your password sucssesfully changed you need to login again')
 
-                    window.location.href = '/api/login'
+                    $('.modal-body').html(''), $('.modal-body').html('your password sucssesfully changed you need to login again'), $("#triger").click();
 
+                    setTimeout(function() {
+                        window.location.href = '/api/login'
 
-                } else if (data.msg === 'wrong password') {
-                    alert('wrong password')
+                    }, 3000);
+
                 }
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                console.log(errorThrown);
-                console.log(textStatus);
-                console.log(XMLHttpRequest);
+            error: function(err) {
+                $('.modal-body').html(''), $('.modal-body').html(err.responseText), $("#triger").click();
+
 
             }
         })
     });
     $('body').on('click', '#pass_close', function() {
-        $('.password').css({ 'display': 'none' })
+        $('.password').slideToggle(1200);
     });
     $('body').on('click', '#delete', function() {
-        $('.delete').css({ 'display': 'block' })
+        $('.delete').slideToggle(1200);
     });
     $('body').on('click', '#delete_account', function() {
         const pass = $('#delete_pass').val()
-        if (pass === "") return alert('please enter your password')
+
         const check_pass = {
             password: pass
         }
-        console.log(check_pass);
         $.ajax({
             type: "POST",
             url: "/api/dashboard/delete",
             data: check_pass,
             success: function(data) {
 
-                if (data.msg === 'deleted') {
-                    alert('your account deleted!')
+                if (data === 'deleted') {
 
-                    window.location.href = '/api/register'
+                    $('.modal-body').html(''), $('.modal-body').html('your account has been deleted!'), $("#triger").click();
 
+                    setTimeout(function() {
+                        window.location.href = '/api/register'
 
-                } else if (data.msg === 'wrong password') {
-                    alert('wrong password')
+                    }, 3000);
+
                 }
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                console.log(errorThrown);
-                console.log(textStatus);
-                console.log(XMLHttpRequest);
+            error: function(err) {
+                $('.modal-body').html(''), $('.modal-body').html(err.responseText), $("#triger").click();
 
             }
         })
     });
     $('body').on('click', '#delete_account_close', function() {
-        $('.delete').css({ 'display': 'none' })
+        $('.delete').slideToggle(1200);
     });
 });
