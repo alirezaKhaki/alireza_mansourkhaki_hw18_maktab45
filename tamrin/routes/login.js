@@ -10,6 +10,7 @@ router.get('/', generalTools.sessionChecker, (req, res) => {
 })
 
 router.post('/', (req, res) => {
+    if (!req.body.username || !req.body.password) return res.status(400).send('please fill the inputs!')
     users.findOne({ username: req.body.username }, function(err, user) {
         if (err) return res.status(500).send({ "msg": "server error " })
         if (user) {
