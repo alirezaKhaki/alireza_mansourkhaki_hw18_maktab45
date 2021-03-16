@@ -20,24 +20,19 @@ $(function() {
             url: "/api/login",
             data: newUser,
             success: function(data) {
-                console.log(data.msg);
-                if (data.msg === 'login sucssesfull') {
-
-                    $('.modal-body').html(''), $('.modal-body').html('login successfull you will now redirect to your dashboard'), $("#triger").click();
-                    setTimeout(function() { window.location.href = '/api/login' }, 3000);
 
 
 
-                } else if (data.msg === 'incorrect username or password') {
-                    $('.modal-body').html('')
-                    $('.modal-body').html('incorrect username or password')
-                    $("#triger").click();
-                }
+                $('.modal-body').html(''), $('.modal-body').html(data), $("#triger").click();
+                setTimeout(function() { window.location.href = '/api/login' }, 3000);
+
+
+
+
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                if (errorThrown) {
-                    alert(errorThrown)
-                }
+            error: function(err) {
+                $('.modal-body').html(''), $('.modal-body').html(err.responseText), $("#triger").click();
+
 
             }
 
