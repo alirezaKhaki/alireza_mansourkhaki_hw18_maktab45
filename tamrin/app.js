@@ -37,13 +37,6 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-    // // console.log("**********************");
-    // console.log(req.session);
-    // console.log('************************');
-    // // console.log(req.session.user);
-    // console.log(req.cookies);
-
-
     if (req.cookies.user_sid && !req.session.user) {
         res.clearCookie('user_sid')
     };
@@ -51,8 +44,8 @@ app.use((req, res, next) => {
 });
 
 
-
-app.use('/api', api);
+app.use('/api', api)
+app.get('/', api);
 
 
 // catch 404 and forward to error handler
