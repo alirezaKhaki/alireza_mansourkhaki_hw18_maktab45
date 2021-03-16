@@ -18,14 +18,14 @@ router.post('/', (req, res) => {
                 if (respoonse) {
                     req.session.user = user;
 
-                    res.send({ "msg": "login sucssesfull" })
+                    return res.send({ "msg": "login sucssesfull" })
                 } else {
 
-                    return res.send({ "msg": 'incorrect username or password' });
+                    return res.status(404).send({ "msg": 'incorrect username or password' });
                 }
             });
         } else if (!user) {
-            res.send({ "msg": 'incorrect username or password' });
+            res.status(404).send({ "msg": 'incorrect username or password' });
         }
     })
 })

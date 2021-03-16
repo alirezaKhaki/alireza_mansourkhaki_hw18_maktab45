@@ -10,16 +10,14 @@ router.get('/', generalTools.loginChecker, (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-    console.log(req.cookies.user_sid);
     res.clearCookie("user_sid");
     res.redirect('/api/dashboard')
 
 })
 
 router.post('/edit', generalTools.loginChecker, (req, res) => {
-    console.log(req.body);
     users.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, user) => {
-        if (err) return console.log(err);
+        if (err) return res.status(500).send({ "msg": "server error " })
         res.clearCookie("user_sid");
         if (user) return res.send({ "msg": "sucsses" });
     })
@@ -44,6 +42,7 @@ router.post('/password', generalTools.loginChecker, (req, res) => {
 
                     return res.status(401).send('wrong password');
                 }
+                if (!user) return re.status(404).send("user not found")
             });
         }
     })
