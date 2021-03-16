@@ -27,9 +27,7 @@
         <p>PHONE NUMBER:
             <%= user.phone %>
         </p>
-        <form action="/api/dashboard/logout" method="GET">
-            <button type="submit">logout</button>
-        </form>
+
     </div>
 
 
@@ -63,6 +61,9 @@
         <button id="edit">Edit Profile</button>
         <button id="change">Change Password</button>
         <button id="delete"> DELETE Account</button>
+        <form style="align-self: center;" action="/api/dashboard/logout" method="GET">
+            <button type="submit">logout</button>
+        </form>
     </div>
 
     <%- include('./partials/modal.ejs') %>
